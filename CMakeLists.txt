@@ -12,5 +12,5 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_executable(${PROJECT_NAME}.elf
     main.cpp
 )
-target_link_libraries(${PROJECT_NAME}.elf pico_stdlib)
+target_link_libraries(${PROJECT_NAME}.elf pico_stdlib hardware_spi)
 pico_add_extra_outputs(${PROJECT_NAME}.elf)
