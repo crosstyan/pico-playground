@@ -1,0 +1,15 @@
+{
+    "cmake.configureArgs": [
+        "-DPICO_SDK_PATH=~/pico-sdk",
+        "-DPICOTOOL_PATH=C:/tools/picotool",
+        "-GNinja",
+        "-DCMAKE_C_COMPILER=C:/tools/arm-gnu-toolchain-13.2/bin/arm-none-eabi-gcc.exe",
+        "-DCMAKE_CXX_COMPILER=C:/tools/arm-gnu-toolchain-13.2/bin/arm-none-eabi-g++.exe",
+    ],
+    // needs to manually specify the include path
+    // for the standard library headers
+    // "-I'C:/tools/arm-gnu-toolchain-13.2/arm-none-eabi/include/c++/13.2.1'",
+    "clangd.arguments": [
+        "--query-driver=C:/tools/arm-gnu-toolchain-13.2/bin/arm-none-eabi-gcc.exe",
+    ]
+}
