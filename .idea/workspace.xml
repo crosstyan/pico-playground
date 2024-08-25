@@ -29,10 +29,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ddfe83f6-a8a7-4008-8b78-4a195fdd29a6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.windows.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.windows.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/etl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inc/ads1292r.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inc/common.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,8 +43,19 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug-arm-none-eabi" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CMakeLists.txt" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../tools/arm-gnu-toolchain-13.2/arm-none-eabi/include/c++/13.2.1/ratio" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
@@ -79,6 +93,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\cross\Desktop\code\heart-pico\src" />
+    </key>
+  </component>
   <component name="RunManager" selected="CMake Application.heart-pi">
     <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
@@ -133,7 +152,7 @@
       <option name="presentableId" value="Default" />
       <updated>1724519558676</updated>
       <workItem from="1724519563073" duration="2989000" />
-      <workItem from="1724548217172" duration="3769000" />
+      <workItem from="1724548217172" duration="12020000" />
     </task>
     <servers />
   </component>

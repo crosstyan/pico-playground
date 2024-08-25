@@ -13,9 +13,13 @@ if (NOT TARGET tinyusb_device)
     message(FATAL_ERROR "TinyUSB submodule is not initialized in the SDK")
 endif()
 
+add_subdirectory(components)
+
 add_executable(${PROJECT_NAME}
-    main.cpp)
+    src/main.cpp)
 target_link_libraries(${PROJECT_NAME} pico_stdlib hardware_spi)
+target_link_libraries(${PROJECT_NAME} etl::etl)
+target_include_directories(${PROJECT_NAME} PRIVATE inc)
 pico_add_extra_outputs(${PROJECT_NAME})
 
 # enable usb output, disable uart output

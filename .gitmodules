@@ -1,0 +1,3 @@
+[submodule "components/etl"]
+	path = components/etl
+	url = https://github.com/ETLCPP/etl
