@@ -14,7 +14,7 @@
   </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
-      <config projectName="heart-pi" targetName="heart-pi.elf" />
+      <config projectName="heart-pi" targetName="heart-pi" />
       <config projectName="heart-pi" targetName="bs2_default_bin" />
       <config projectName="heart-pi" targetName="bs2_default_padded_checksummed_asm" />
       <config projectName="heart-pi" targetName="cyw43_driver_picow_cyw43_bus_pio_spi_pio_h" />
@@ -29,10 +29,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ddfe83f6-a8a7-4008-8b78-4a195fdd29a6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.clang-format" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.windows.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.windows.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$USER_HOME$/pico-sdk/src/host/pico_platform/include/pico/platform.h" beforeDir="false" afterPath="$USER_HOME$/pico-sdk/src/host/pico_platform/include/pico/platform.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,13 +75,14 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="CMake Application.heart-pi.elf">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+  <component name="RunManager" selected="CMake Application.heart-pi">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="bs2_default" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="heart-pi" TARGET_NAME="bs2_default" CONFIG_NAME="Debug-arm-none-eabi" RUN_TARGET_PROJECT_NAME="heart-pi" RUN_TARGET_NAME="bs2_default">
@@ -104,7 +105,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="heart-pi.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="heart-pi" TARGET_NAME="heart-pi.elf" CONFIG_NAME="Debug-arm-none-eabi" RUN_TARGET_PROJECT_NAME="heart-pi" RUN_TARGET_NAME="heart-pi.elf">
+    <configuration name="heart-pi" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="heart-pi" TARGET_NAME="heart-pi" CONFIG_NAME="Debug-arm-none-eabi" RUN_TARGET_PROJECT_NAME="heart-pi" RUN_TARGET_NAME="heart-pi">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -115,7 +116,7 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake Application.heart-pi.elf" />
+      <item itemvalue="CMake Application.heart-pi" />
       <item itemvalue="CMake Application.bs2_default" />
       <item itemvalue="CMake Application.bs2_default_bin" />
       <item itemvalue="CMake Application.bs2_default_padded_checksummed_asm" />
@@ -131,7 +132,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1724519558676</updated>
-      <workItem from="1724519563073" duration="2418000" />
+      <workItem from="1724519563073" duration="2989000" />
+      <workItem from="1724548217172" duration="3769000" />
     </task>
     <servers />
   </component>

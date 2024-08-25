@@ -9,8 +9,15 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(${PROJECT_NAME}.elf
-    main.cpp
-)
-target_link_libraries(${PROJECT_NAME}.elf pico_stdlib hardware_spi)
-pico_add_extra_outputs(${PROJECT_NAME}.elf)
+if (NOT TARGET tinyusb_device)
+    message(FATAL_ERROR "TinyUSB submodule is not initialized in the SDK")
+endif()
+
+add_executable(${PROJECT_NAME}
+    main.cpp)
+target_link_libraries(${PROJECT_NAME} pico_stdlib hardware_spi)
+pico_add_extra_outputs(${PROJECT_NAME})
+
+# enable usb output, disable uart output
+pico_enable_stdio_usb(${PROJECT_NAME} 1)
+pico_enable_stdio_uart(${PROJECT_NAME} 0)
