@@ -156,6 +156,17 @@ bool stdio_usb_deinit(void);
  *  \return true if stdio is connected over CDC
  */
 bool stdio_usb_connected(void);
+
+/**
+ * @brief like `stdio_usb_out_chars` but for CDC interface 1
+ * @param buf buffer to write
+ * @param length length of buffer
+ */
+void cdc_1_usb_out_chars(const char *buf, int length);
+/**
+ * @brief like `stdio_usb_out_flush` but for CDC interface 1
+ */
+void cdc_1_out_flush();
 #ifdef __cplusplus
 }
 #endif

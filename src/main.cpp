@@ -14,8 +14,6 @@ constexpr auto NS_PER_SEC = 1'000'000'000;
 constexpr auto MS_PER_NS  = 1'000'000;
 constexpr auto CPU_FREQ   = 125'000'000;
 
-// https://github.com/raspberrypi/pico-examples/blob/master/gpio/hello_gpio_irq/hello_gpio_irq.c
-
 consteval size_t spin_cycles(const uint64_t cpu_freq, const uint64_t ns) {
 	return static_cast<size_t>(cpu_freq * ns / 1'000'000'000);
 }
@@ -161,7 +159,6 @@ constexpr auto init = [] -> spi_inst_t * {
 	bi_decl(bi_3pins_with_func(common::pin::MISO, common::pin::MOSI, common::pin::SCK, GPIO_FUNC_SPI));
 	bi_decl(bi_1pin_with_name(common::pin::CS, "CS"));
 
-
 	auto &spi                   = *spi_default;
 	constexpr auto spi_baudrate = 1'000'000;
 	spi_init(&spi, spi_baudrate);
@@ -192,7 +189,31 @@ constexpr auto check_id = [](spi_inst_t *spi) {
 };
 } // namespace ADS1292R
 
+// Communication Device Class
+namespace cdc1 {
+constexpr auto write = cdc_1_usb_out_chars;
+constexpr auto flush = cdc_1_out_flush;
 
+/**
+ * @brief Print formatted data to the USB CDC
+ * @tparam N buffer size
+ * @param fmt format string
+ * @param ... arguments
+ * @return number of characters printed
+ */
+template <size_t N = 128>
+int printf(const char *fmt, ...) {
+	va_list args;
+	va_start(args, fmt);
+	char buf[N];
+	const auto n = vsnprintf(buf, N, fmt, args);
+	cdc1::write(buf, n);
+	va_end(args);
+	return n;
+}
+} // namespace cdc1
+
+// https://github.com/raspberrypi/pico-examples/blob/master/gpio/hello_gpio_irq/hello_gpio_irq.c
 // https://github.com/raspberrypi/pico-examples/blob/master/spi/bme280_spi/bme280_spi.c
 [[noreturn]]
 int main() {
@@ -216,13 +237,13 @@ int main() {
 	sleep_ms(1);
 	ADS1292R::ctrl_data_transfer(&spi, ADS1292R::DataStart::STOP);
 
-retry:
-	const auto ok = ADS1292R::check_id(&spi);
-	if (!ok) {
-		LOGE(TAG, "can't find ADS1292R, retrying...");
-		sleep_ms(1000);
-		goto retry;
+	static auto n = 0;
+	for (;;) {
+		LOGI(TAG, "loop %d", n);
+		cdc1::printf("from cdc1 %d\r\n", n);
+		sleep_ms(500);
+		n++;
+		gpio_put(pin::BUILT_IN_LED, n % 2);
 	}
-
 	return 0;
 }

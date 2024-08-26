@@ -30,9 +30,10 @@
   <component name="ChangeListManager">
     <list default="true" id="ddfe83f6-a8a7-4008-8b78-4a195fdd29a6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/components/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/logging.h" beforeDir="false" afterPath="$PROJECT_DIR$/inc/logging.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/pico_stdio_usb/include/pico/stdio_usb.h" beforeDir="false" afterPath="$PROJECT_DIR$/components/pico_stdio_usb/include/pico/stdio_usb.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/pico_stdio_usb/include/tusb_config.h" beforeDir="false" afterPath="$PROJECT_DIR$/components/pico_stdio_usb/include/tusb_config.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/pico_stdio_usb/stdio_usb.c" beforeDir="false" afterPath="$PROJECT_DIR$/components/pico_stdio_usb/stdio_usb.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/pico_stdio_usb/stdio_usb_descriptors.c" beforeDir="false" afterPath="$PROJECT_DIR$/components/pico_stdio_usb/stdio_usb_descriptors.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +54,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../../../../tools/arm-gnu-toolchain-13.2/arm-none-eabi/include/c++/13.2.1/ratio" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file:///opt/arm-gnu-toolchain-13.2/arm-none-eabi/include/stdio.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
@@ -89,7 +90,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "CMakeSettings",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -155,7 +156,7 @@
       <workItem from="1724519563073" duration="2989000" />
       <workItem from="1724548217172" duration="12020000" />
       <workItem from="1724641481673" duration="13149000" />
-      <workItem from="1724658977411" duration="4292000" />
+      <workItem from="1724658977411" duration="8584000" />
     </task>
     <servers />
   </component>

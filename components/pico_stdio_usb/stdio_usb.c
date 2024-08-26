@@ -100,6 +100,43 @@ static void usb_irq(void) {
 
 #endif
 
+void cdc_1_usb_out_chars(const char *buf, int length) {
+	static uint64_t last_avail_time;
+	const uint8_t itf = 1;
+	if (stdio_usb_connected()) {
+		for (int i = 0; i < length;) {
+			int n           = length - i;
+			const int avail = (int)tud_cdc_n_write_available(itf);
+			if (n > avail) {
+				n = avail;
+			}
+			if (n) {
+				const int n2 = (int)tud_cdc_n_write(itf, buf + i, (uint32_t)n);
+				tud_task();
+				tud_cdc_n_write_flush(itf);
+				i += n2;
+				last_avail_time = time_us_64();
+			} else {
+				tud_task();
+				tud_cdc_n_write_flush(itf);
+				if (!stdio_usb_connected() ||
+					(!tud_cdc_n_write_available(itf) && time_us_64() > last_avail_time + PICO_STDIO_USB_STDOUT_TIMEOUT_US)) {
+					break;
+				}
+			}
+		}
+	} else {
+		last_avail_time = 0;
+	}
+}
+
+void cdc_1_out_flush(void) {
+	const uint8_t itf = 1;
+	do {
+		tud_task();
+	} while (tud_cdc_n_write_flush(itf));
+}
+
 static void stdio_usb_out_chars(const char *buf, int length) {
 	static uint64_t last_avail_time;
 	if (!mutex_try_enter_block_until(&stdio_usb_mutex, make_timeout_time_ms(PICO_STDIO_DEADLOCK_TIMEOUT_MS))) {
