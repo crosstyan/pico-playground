@@ -7,6 +7,7 @@
 #include "common.hpp"
 #include "ads1292r.hpp"
 
+#include <pico/stdio_usb.h>
 #include <pico/binary_info/code.h>
 
 constexpr auto NS_PER_SEC = 1'000'000'000;
@@ -203,7 +204,7 @@ int main() {
 	// https://github.com/Noltari/pico-uart-bridge/blob/master/usb-descriptors.c
 	// https://github.com/raspberrypi/pico-sdk/tree/master/src/rp2_common/pico_stdio_usb
 	// https://www.pschatzmann.ch/home/2021/02/19/tinyusb-a-simple-tutorial/
-	stdio_init_all();
+	stdio_usb_init();
 
 	gpio_init(pin::BUILT_IN_LED);
 	gpio_set_dir(pin::BUILT_IN_LED, GPIO_OUT);

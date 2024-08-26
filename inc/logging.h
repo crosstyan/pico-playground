@@ -9,22 +9,7 @@
 #include <pico/time.h>
 #include <sys/unistd.h>
 
-/**
- *
- * Why do I need macro here?
- *
- * The initial implementation was done with C++ template and variadic parameter.
- * However `vprintf` would eats up too much memory. I could only use `printf` (which seems weird since `printf`
- * should have called `vprintf` but due to some compiler magic the `printf` eats 466 bytes and the `vprintf`
- * would eats several KBs)
- *
- * The unavailability of `vprintf` means variadic parameter could not be used. One has to pass the arguments directly
- * to `printf`. Ugly indeed...
- *
- */
 namespace logging {
-// somehow the Level is ordered
-// the lower the level, the more verbose
 enum class Level {
 	Trace = 0,
 	Debug,
@@ -89,7 +74,7 @@ constexpr size_t LOGGING_NO_FILENAME = 1 << 1;
 
 template <Level L>
 void print_prefix(const char *tag, const char *file, const int line,
-				  uint32_t timestamp,
+				  const uint32_t timestamp,
 				  int (*printer)(const char *...),
 				  const size_t flags) {
 	const auto is_use_color   = (flags & LOGGING_USE_COLOR) != 0;
