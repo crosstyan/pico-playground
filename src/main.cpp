@@ -3,8 +3,11 @@
 #include <hardware/spi.h>
 #include <cstdio>
 #include <etl/span.h>
+#include "logging.h"
 #include "common.hpp"
 #include "ads1292r.hpp"
+
+#include <pico/binary_info/code.h>
 
 constexpr auto NS_PER_SEC = 1'000'000'000;
 constexpr auto MS_PER_NS  = 1'000'000;
@@ -34,12 +37,13 @@ void spin_block() {
 }
 
 namespace ADS1292R {
+constexpr auto TAG        = "ads1292r";
 constexpr auto spi_pre_cb = []() {
 	gpio_put(common::pin::CS, false);
 };
 constexpr auto spi_post_cb = []() {
 	// wait for 4us to satisfy the timing requirements of the ADS1292R
-	sleep_us(4);
+	sleep_us(8);
 	gpio_put(common::pin::CS, true);
 };
 
@@ -53,7 +57,7 @@ constexpr auto send_cmd = [](spi_inst_t *spi, const uint8_t cmd) {
 	spi_post_cb();
 
 	if (n != len) {
-		panic("spi_write_blocking: expected %d bytes, got %d\n", len, n);
+		LOGP(TAG, "expected %d bytes, got %d", len, n);
 	}
 };
 
@@ -74,7 +78,7 @@ constexpr auto read = [](spi_inst_t *spi, const uint8_t reg) {
 	spi_post_cb();
 
 	if (n != len) {
-		panic("spi_write_read_blocking: expected %d bytes, got %d\n", len, n);
+		LOGP(TAG, "expected %d bytes, got %d", len, n);
 	}
 	return rx_buf[2];
 };
@@ -92,7 +96,7 @@ constexpr auto write = [](spi_inst_t *spi, const uint8_t reg, const uint8_t data
 	spi_post_cb();
 
 	if (n != len) {
-		panic("spi_write_blocking: expected %d bytes, got %d\n", len, n);
+		LOGP(TAG, "expected %d bytes, got %d", len, n);
 	}
 };
 
@@ -100,7 +104,7 @@ constexpr auto checked_write = [](spi_inst_t *spi, const uint8_t reg, const uint
 	write(spi, reg, data);
 	const auto read_data = read(spi, reg);
 	if (read_data != data) {
-		printf("ads1292r_checked_write: expected %d, got %d\n", data, read_data);
+		LOGE(TAG, "expected %d, got %d", data, read_data);
 		return false;
 	}
 	return true;
@@ -115,7 +119,7 @@ constexpr auto batch_read_data = [](spi_inst_t *spi, etl::span<uint8_t> buf) {
 	tx_buf[0]    = ADS1292R::RDATA;
 	const auto n = spi_write_read_blocking(spi, tx_buf, buf.data(), len);
 	if (n != len) {
-		panic("spi_write_read_blocking: expected %d bytes, got %d\n", len, n);
+		LOGP(TAG, "expected %d bytes, got %d", len, n);
 	}
 	// discard the first byte
 	// https://en.cppreference.com/w/cpp/algorithm/copy
@@ -145,10 +149,17 @@ constexpr auto init = [] -> spi_inst_t * {
 	gpio_init(common::pin::RESET);
 	gpio_init(common::pin::DRDY);
 
-	gpio_init(common::pin::CS);
+	gpio_set_dir(common::pin::CS, GPIO_OUT);
 	gpio_set_dir(common::pin::START, GPIO_OUT);
 	gpio_set_dir(common::pin::RESET, GPIO_OUT);
 	gpio_set_dir(common::pin::DRDY, GPIO_IN);
+
+	gpio_set_function(common::pin::MISO, GPIO_FUNC_SPI);
+	gpio_set_function(common::pin::MOSI, GPIO_FUNC_SPI);
+	gpio_set_function(common::pin::SCK, GPIO_FUNC_SPI);
+	bi_decl(bi_3pins_with_func(common::pin::MISO, common::pin::MOSI, common::pin::SCK, GPIO_FUNC_SPI));
+	bi_decl(bi_1pin_with_name(common::pin::CS, "CS"));
+
 
 	auto &spi                   = *spi_default;
 	constexpr auto spi_baudrate = 1'000'000;
@@ -162,15 +173,16 @@ constexpr auto init = [] -> spi_inst_t * {
 
 constexpr auto check_id = [](spi_inst_t *spi) {
 	constexpr auto correct_id = id_t::ADS1292R_ID;
+	constexpr auto TAG        = "ads1292r";
 	auto retry                = 0;
 	constexpr auto max_retry  = 5;
 	while (retry < max_retry) {
 		const auto id = read(spi, id_t::ID_ADDRESS);
 		if (id == correct_id) {
-			printf("found ADS1292R\n");
+			LOGD(TAG, "found ADS1292R");
 			return true;
 		}
-		printf("ads1292r_check_id: expected %d, got %d\n", correct_id, id);
+		LOGW(TAG, "ID expected 0x%" PRIx8 " but got 0x%" PRIx8, correct_id, id);
 
 		retry++;
 		sleep_ms(10);
@@ -184,16 +196,32 @@ constexpr auto check_id = [](spi_inst_t *spi) {
 [[noreturn]]
 int main() {
 	using namespace common;
+	constexpr auto TAG = "main";
+	// on dual virtual port
+	// https://github.com/hathach/tinyusb/tree/master/examples/device/cdc_dual_ports
+	// https://www.reddit.com/r/embedded/comments/130xlw9/usb_cdc_multiple_virtual_com_ports
+	// https://github.com/Noltari/pico-uart-bridge/blob/master/usb-descriptors.c
+	// https://github.com/raspberrypi/pico-sdk/tree/master/src/rp2_common/pico_stdio_usb
+	// https://www.pschatzmann.ch/home/2021/02/19/tinyusb-a-simple-tutorial/
 	stdio_init_all();
 
 	gpio_init(pin::BUILT_IN_LED);
 	gpio_set_dir(pin::BUILT_IN_LED, GPIO_OUT);
+	gpio_put(pin::BUILT_IN_LED, true);
+	auto &spi = *ADS1292R::init();
+	gpio_put(pin::RESET, false);
+	sleep_ms(1);
+	gpio_put(pin::RESET, true);
+	sleep_ms(1);
+	ADS1292R::ctrl_data_transfer(&spi, ADS1292R::DataStart::STOP);
 
-	auto &spi     = *ADS1292R::init();
+retry:
 	const auto ok = ADS1292R::check_id(&spi);
 	if (!ok) {
-		panic("ads1292r_check_id: failed\n");
+		LOGE(TAG, "can't find ADS1292R, retrying...");
+		sleep_ms(1000);
+		goto retry;
 	}
 
-	ADS1292R::init();
+	return 0;
 }

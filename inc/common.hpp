@@ -12,9 +12,9 @@ namespace pin {
 	constexpr auto MOSI         = PICO_DEFAULT_SPI_TX_PIN;
 	constexpr auto MISO         = PICO_DEFAULT_SPI_RX_PIN;
 	constexpr auto CS           = PICO_DEFAULT_SPI_CSN_PIN;
-	constexpr auto DRDY         = 6;
-	constexpr auto START        = 7;
-	constexpr auto RESET        = 8;
+	constexpr auto DRDY         = 21;
+	constexpr auto START        = 26;
+	constexpr auto RESET        = 27;
 } // namespace pin
 constexpr auto SPI_CONTROLLER_ID = PICO_DEFAULT_SPI;
 } // namespace common
