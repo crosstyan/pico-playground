@@ -66,10 +66,18 @@
 #define USBD_MAX_POWER_MA                       (1)
 #endif
 
+/**
+ * interface:
+ * 0 & 1: CDC 0
+ * 2: Reset
+ * 3 & 4: CDC 1
+ */
+
 #define USBD_ITF_CDC_0 (0) // needs 2 interfaces
 #if !PICO_STDIO_USB_ENABLE_RESET_VIA_VENDOR_INTERFACE
 #define USBD_ITF_MAX (2)
 #else
+// note that the order (interface number) matters here
 #define USBD_ITF_RPI_RESET (2)
 #define USBD_ITF_CDC_1     (3) // needs 2 interfaces
 // 1 Reset interface, 2 CDC interfaces (each with 2 endpoints)

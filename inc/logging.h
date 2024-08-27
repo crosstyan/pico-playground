@@ -72,6 +72,16 @@ constexpr auto COLOR_RESET           = "\033[0m";
 constexpr size_t LOGGING_USE_COLOR   = 1 << 0;
 constexpr size_t LOGGING_NO_FILENAME = 1 << 1;
 
+/**
+ * @brief Print the prefix of a log message
+ * @tparam L log level
+ * @param tag tag for the log message
+ * @param file file name of the log message
+ * @param line line number of the log message
+ * @param timestamp timestamp of the log message
+ * @param printer a function pointer to print the log message, printf like
+ * @param flags see `LOGGING_*`
+ */
 template <Level L>
 void print_prefix(const char *tag, const char *file, const int line,
 				  const uint32_t timestamp,
@@ -109,8 +119,7 @@ constexpr auto global_clock         = [] {
 	do {                                                                                                                            \
 		if (level >= logging::global_logging_level) {                                                                               \
 			logging::print_prefix<level>(tag, file, line, logging::global_clock(), logging::global_printer, logging::global_flags); \
-			logging::global_printer(fmt, ##__VA_ARGS__);                                                                            \
-			logging::global_printer("\n");                                                                                          \
+			logging::global_printer(fmt "\r\n", ##__VA_ARGS__);                                                                     \
 		}                                                                                                                           \
 	} while (0)
 
@@ -118,6 +127,9 @@ constexpr auto global_clock         = [] {
 #define LOGD(tag, fmt, ...) LOG_GLOBAL(logging::Level::Debug, tag, __FILE_NAME__, __LINE__, fmt, ##__VA_ARGS__)
 #define LOGE(tag, fmt, ...) LOG_GLOBAL(logging::Level::Error, tag, __FILE_NAME__, __LINE__, fmt, ##__VA_ARGS__)
 #define LOGW(tag, fmt, ...) LOG_GLOBAL(logging::Level::Warn, tag, __FILE_NAME__, __LINE__, fmt, ##__VA_ARGS__)
+/**
+ * @brief Log an error message and exit the program (panic)
+ */
 #define LOGP(tag, fmt, ...)            \
 	do {                               \
 		LOGE(tag, fmt, ##__VA_ARGS__); \

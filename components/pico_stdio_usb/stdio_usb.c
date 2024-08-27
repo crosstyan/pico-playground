@@ -100,10 +100,10 @@ static void usb_irq(void) {
 
 #endif
 
-void cdc_1_usb_out_chars(const char *buf, int length) {
+void cdc_1_usb_out_chars(const char *buf, const int length) {
 	static uint64_t last_avail_time;
 	const uint8_t itf = 1;
-	if (stdio_usb_connected()) {
+	if (tud_cdc_n_connected(itf)) {
 		for (int i = 0; i < length;) {
 			int n           = length - i;
 			const int avail = (int)tud_cdc_n_write_available(itf);
@@ -119,7 +119,7 @@ void cdc_1_usb_out_chars(const char *buf, int length) {
 			} else {
 				tud_task();
 				tud_cdc_n_write_flush(itf);
-				if (!stdio_usb_connected() ||
+				if (!tud_cdc_n_connected(itf) ||
 					(!tud_cdc_n_write_available(itf) && time_us_64() > last_avail_time + PICO_STDIO_USB_STDOUT_TIMEOUT_US)) {
 					break;
 				}

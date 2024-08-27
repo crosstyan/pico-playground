@@ -30,10 +30,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ddfe83f6-a8a7-4008-8b78-4a195fdd29a6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/pico_stdio_usb/include/pico/stdio_usb.h" beforeDir="false" afterPath="$PROJECT_DIR$/components/pico_stdio_usb/include/pico/stdio_usb.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/pico_stdio_usb/include/tusb_config.h" beforeDir="false" afterPath="$PROJECT_DIR$/components/pico_stdio_usb/include/tusb_config.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/pico_stdio_usb/stdio_usb.c" beforeDir="false" afterPath="$PROJECT_DIR$/components/pico_stdio_usb/stdio_usb.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/pico_stdio_usb/stdio_usb_descriptors.c" beforeDir="false" afterPath="$PROJECT_DIR$/components/pico_stdio_usb/stdio_usb_descriptors.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/logging.h" beforeDir="false" afterPath="$PROJECT_DIR$/inc/logging.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,6 +53,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file:///opt/arm-gnu-toolchain-13.2/arm-none-eabi/include/assert.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file:///opt/arm-gnu-toolchain-13.2/arm-none-eabi/include/stdio.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectApplicationVersion">
@@ -70,30 +70,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.RadMigrateCodeStyle": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "bazel.project.detector.is.bazel.project": "true",
-    "cf.advertisement.text.has.clang-format": "true",
-    "cf.advertisement.text.overridden": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/Users/crosstyan/Code/pico-playground",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;bazel.project.detector.is.bazel.project&quot;: &quot;true&quot;,
+    &quot;cf.advertisement.text.has.clang-format&quot;: &quot;true&quot;,
+    &quot;cf.advertisement.text.overridden&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/crosstyan/Code/pico-playground&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/docs" />
@@ -101,9 +101,9 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.heart-pi">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="bs2_default" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="heart-pi" TARGET_NAME="bs2_default" CONFIG_NAME="RelWithDebInfo-arm-none-eabi" RUN_TARGET_PROJECT_NAME="heart-pi" RUN_TARGET_NAME="bs2_default">
@@ -156,7 +156,8 @@
       <workItem from="1724519563073" duration="2989000" />
       <workItem from="1724548217172" duration="12020000" />
       <workItem from="1724641481673" duration="13149000" />
-      <workItem from="1724658977411" duration="8584000" />
+      <workItem from="1724658977411" duration="10267000" />
+      <workItem from="1724722449595" duration="2310000" />
     </task>
     <servers />
   </component>

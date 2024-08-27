@@ -54,10 +54,7 @@ constexpr auto send_cmd = [](spi_inst_t *spi, const uint8_t cmd) {
 	spi_pre_cb();
 	const auto n = spi_write_blocking(spi, tx_buf, len);
 	spi_post_cb();
-
-	if (n != len) {
-		LOGP(TAG, "expected %d bytes, got %d", len, n);
-	}
+	assert(n == len);
 };
 
 constexpr auto read = [](spi_inst_t *spi, const uint8_t reg) {
@@ -75,10 +72,7 @@ constexpr auto read = [](spi_inst_t *spi, const uint8_t reg) {
 	spi_pre_cb();
 	const auto n = spi_write_read_blocking(spi, tx_buf, rx_buf, len);
 	spi_post_cb();
-
-	if (n != len) {
-		LOGP(TAG, "expected %d bytes, got %d", len, n);
-	}
+	assert(n == len);
 	return rx_buf[2];
 };
 
@@ -93,10 +87,7 @@ constexpr auto write = [](spi_inst_t *spi, const uint8_t reg, const uint8_t data
 	spi_pre_cb();
 	const auto n = spi_write_blocking(spi, tx_buf, len);
 	spi_post_cb();
-
-	if (n != len) {
-		LOGP(TAG, "expected %d bytes, got %d", len, n);
-	}
+	assert(n == len);
 };
 
 constexpr auto checked_write = [](spi_inst_t *spi, const uint8_t reg, const uint8_t data) {
@@ -117,9 +108,7 @@ constexpr auto batch_read_data = [](spi_inst_t *spi, etl::span<uint8_t> buf) {
 	uint8_t tx_buf[len]{};
 	tx_buf[0]    = ADS1292R::RDATA;
 	const auto n = spi_write_read_blocking(spi, tx_buf, buf.data(), len);
-	if (n != len) {
-		LOGP(TAG, "expected %d bytes, got %d", len, n);
-	}
+	assert(n == len);
 	// discard the first byte
 	// https://en.cppreference.com/w/cpp/algorithm/copy
 	// If d_first is in `[first, last)`, the behavior is undefined.
@@ -132,6 +121,9 @@ enum class DataStart : uint8_t {
 	START = 0x01,
 };
 
+/**
+ * @brief Set the START pin to start or stop data transfer
+ */
 constexpr auto ctrl_data_transfer = [](spi_inst_t *spi, const DataStart start) {
 	if (start == DataStart::START) {
 		gpio_put(common::pin::START, true);
